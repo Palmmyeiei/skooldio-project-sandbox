@@ -1,45 +1,50 @@
 // ProductRecommendations.js
 import React, { useState, useEffect } from "react";
 import { Star } from "@mui/icons-material";
+import { Link } from "react-router-dom";
 
 const ProductCard = ({ product }) => {
   return (
-    <div className="product-card flex flex-col w-[370px] h-[524px] gap-[16px]">
-      <div className="product-rec-image">
-        <img
-          style={{
-            width: "370px",
-            height: "370px",
-          }}
-          src={product.image}
-          alt={product.name}
-          className="w-full object-cover transition-transform duration-300 group-hover:scale-105"
-        />{" "}
-      </div>
-
-      <div className="product-rec-detail flex flex-col gap-[8px]">
-        <p className="product-rec-name text-[24px] font-bold text-[#222222] line-clamp-1">
-          {product.name}
-        </p>
-        <p className="product-rec-description text-[16px] font-normal text-[#626262] line-clamp-1">
-          {product.description}
-        </p>
-        <div className="product-rec-score flex items-center space-x-1">
-          {[...Array(5)].map((_, index) => (
-            <Star
-              key={index}
-              fontSize="medium"
-              className={
-                index < product.rating ? "text-[#DEF81C]" : "text-gray-300"
-              }
-            />
-          ))}
+    <Link to={`/products/${product.permalink}`}>
+      {" "}
+      {/* Use permalink in the path */}
+      <div className="product-card flex flex-col w-[370px] h-[524px] gap-[16px]">
+        <div className="product-rec-image">
+          <img
+            style={{
+              width: "370px",
+              height: "370px",
+            }}
+            src={product.image}
+            alt={product.name}
+            className="w-full object-cover transition-transform duration-300 group-hover:scale-105"
+          />
         </div>
-        <p className="product-rec-price text-[24px] font-bold text-[#222222] text-right">
-          THB {product.price.toLocaleString()}
-        </p>
+
+        <div className="product-rec-detail flex flex-col gap-[8px]">
+          <p className="product-rec-name text-[24px] font-bold text-[#222222] line-clamp-1">
+            {product.name}
+          </p>
+          <p className="product-rec-description text-[16px] font-normal text-[#626262] line-clamp-1">
+            {product.description}
+          </p>
+          <div className="product-rec-score flex items-center space-x-1">
+            {[...Array(5)].map((_, index) => (
+              <Star
+                key={index}
+                fontSize="medium"
+                className={
+                  index < product.rating ? "text-[#DEF81C]" : "text-gray-300"
+                }
+              />
+            ))}
+          </div>
+          <p className="product-rec-price text-[24px] font-bold text-[#222222] text-right">
+            THB {product.price.toLocaleString()}
+          </p>
+        </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

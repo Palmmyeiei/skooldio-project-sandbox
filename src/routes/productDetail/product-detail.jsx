@@ -12,6 +12,7 @@ import {
   Select,
   Typography,
 } from "@mui/material";
+import { useParams } from "react-router-dom";
 
 export default function ProductDetail() {
   const [selectedColor, setSelectedColor] = useState("navy");
@@ -19,6 +20,7 @@ export default function ProductDetail() {
   const [quantity, setQuantity] = useState(1);
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  const { skuCode } = useParams(); // Get skuCode from URL parameters
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -65,6 +67,8 @@ export default function ProductDetail() {
     fetchProducts();
   }, []);
 
+  const product = products.find((product) => product.id === skuCode); // Find product by skuCode
+
   if (loading) {
     return <p>Loading products...</p>;
   }
@@ -73,7 +77,7 @@ export default function ProductDetail() {
     return <p>Error fetching products: {error.message}</p>;
   }
 
-  const product = products[0];
+  // const product = products[0];
 
   if (!product) {
     return <p>No product found.</p>;
