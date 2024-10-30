@@ -1,18 +1,10 @@
-import "./App.css";
 import Footer from "./components/footer";
 import Navbar from "./components/navbar";
-import ProductDetail from "./components/productDetail/product-detail";
-import ProductRecommendations from "./components/productDetail/product-recommend";
+import ProductDetail from "./routes/productDetail/product-detail";
+import ProductRecommendations from "./routes/productDetail/product-recommend";
 
 function App() {
-  return (
-    <>
-      <Navbar />
-      <ProductDetail />
-      <ProductRecommendations />
-      <Footer />
-    </>
-  );
+  return <h1 className="text-[40px]">Product List</h1>;
 }
 
 export default App;
