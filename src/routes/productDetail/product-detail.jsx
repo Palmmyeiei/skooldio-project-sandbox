@@ -110,6 +110,9 @@ export default function ProductDetail() {
   const handleAddToCart = () => {
     const item = {
       skuCode: product.skuCode,
+      name: product.name,
+      price: product.price,
+      imageUrls: product.imageUrls[0],
       color: selectedColor,
       size: selectedSize,
       quantity: quantity,
