@@ -1,7 +1,17 @@
 import { AppBar, Toolbar, IconButton, Typography, Stack } from "@mui/material";
 import { Search, Favorite, Person, ShoppingBasket } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const navigate = useNavigate(); // Initialize navigate
+
+  const handleListClick = () => {
+    navigate("/products"); // Navigate to the /cart URL
+  };
+
+  const handleCartClick = () => {
+    navigate("/cart"); // Navigate to the /cart URL
+  };
   return (
     <AppBar
       position="sticky"
@@ -12,6 +22,7 @@ const Navbar = () => {
           <Typography
             component="div"
             className="text-[18px] font-semibold font-bold"
+            onClick={handleListClick}
           >
             WDB
           </Typography>
@@ -45,7 +56,7 @@ const Navbar = () => {
           <IconButton color="inherit">
             <Person />
           </IconButton>
-          <IconButton color="inherit">
+          <IconButton color="inherit" onClick={handleCartClick}>
             <ShoppingBasket />
           </IconButton>
         </Stack>

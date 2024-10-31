@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useCart } from "../cart/card-context";
 import {
   ChevronLeft,
   ChevronRight,
   Star,
   FavoriteBorder,
+  Login,
 } from "@mui/icons-material";
 import {
   Button,
@@ -16,6 +19,9 @@ import {
 
 export default function ProductDetail() {
   const { permalink } = useParams(); // Get permalink from URL params
+  const { addToCart } = useCart();
+  const navigate = useNavigate(); // Add this
+  const [selectedColor, setSelectedColor] = useState("");
   const [selectedColorCode, setSelectedColorCode] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
   const [quantity, setQuantity] = useState(1);
@@ -63,6 +69,8 @@ export default function ProductDetail() {
         };
 
         setProduct(productData);
+
+        setSelectedColor(uniqueColors[0] || ""); // Set default color
         setSelectedColorCode(uniqueColorCodes[0] || ""); // Set default color code
         setSelectedSize(uniqueSizes[0] || ""); // Set default size
       } catch (error) {
@@ -97,6 +105,18 @@ export default function ProductDetail() {
     setCurrentIndex((prevIndex) =>
       prevIndex > 0 ? prevIndex - 1 : product.imageUrls.length - 1
     );
+  };
+
+  const handleAddToCart = () => {
+    const item = {
+      skuCode: product.skuCode,
+      color: selectedColor,
+      size: selectedSize,
+      quantity: quantity,
+    };
+
+    addToCart(item);
+    console.log("Item added to cart:", item);
   };
 
   const thumbnailImages = product.imageUrls.filter(
@@ -195,7 +215,6 @@ export default function ProductDetail() {
               <div className="flex gap-2">
                 {product.colors.map((color, index) => {
                   const colorCode = product.colorCodes[index]; // Get the corresponding color code
-                  console.log(colorCode);
                   return (
                     <div key={colorCode} className="flex flex-col items-center">
                       <Button
@@ -235,8 +254,10 @@ export default function ProductDetail() {
                       border:
                         selectedSize === size
                           ? "1.5px solid #C1CD00"
-                          : "1.5px solid #E0E0E0",
-                      color: selectedSize === size ? "#C1CD00" : "#626262",
+                          : "1.5px solid #E1E1E1",
+                      backgroundColor: "white",
+                      color: "black",
+                      borderRadius: "0",
                     }}
                   >
                     {size}
@@ -253,6 +274,12 @@ export default function ProductDetail() {
                 onChange={(e) => setQuantity(e.target.value)}
                 displayEmpty
                 className="w-[150px]"
+                style={{
+                  width: "139px",
+                  height: "54px",
+                  borderRadius: "0",
+                  border: "0.5px solid #E1E1E1",
+                }}
               >
                 {[1, 2, 3, 4, 5].map((q) => (
                   <MenuItem key={q} value={q}>
@@ -266,10 +293,23 @@ export default function ProductDetail() {
           <Button
             variant="contained"
             color="primary"
-            className="mt-[16px]"
-            onClick={() =>
-              console.log({ selectedColorCode, selectedSize, quantity })
-            }
+            fullWidth
+            style={{
+              width: "780px",
+              height: "54px",
+              backgroundColor: "#222222",
+              color: "white",
+              borderRadius: 0,
+            }}
+            onClick={() => {
+              try {
+                handleAddToCart(); // Correctly invoke the function with ()
+                console.log("handle work");
+              } catch {
+                console.log("handle error");
+              }
+              console.log("Click");
+            }}
           >
             Add to Cart
           </Button>
