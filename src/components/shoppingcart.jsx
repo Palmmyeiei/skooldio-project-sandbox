@@ -40,10 +40,7 @@ const ShoppingCart = () => {
           {cartItems.length === 0 ? (
             <div className="empty-cart">
               <div className="w-[403px] h-[403px] mx-auto mb-4">
-                <ShoppingBagIcon
-                  className="w-full h-full text-gray-300"
-                  fontSize="inherit"
-                />
+                <img src="../../src/assets/emptycart.png" alt="emptycart" />
               </div>
               <p className="text-xl font-bold mb-2">Your cart is empty</p>
               <span className="text-sm text-[#666] mb-5 block">
